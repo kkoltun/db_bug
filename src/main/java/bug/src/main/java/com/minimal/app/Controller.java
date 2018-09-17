@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.sql.DataSource;
+
 @RestController
 public class Controller {
 
@@ -14,12 +16,8 @@ public class Controller {
   @Autowired PersonRepository repository;
 
   @GetMapping(value = "/")
-  public void test() {
-    try {
+  public void findPerson() {
       repository.findByFirstName("Fix").ifPresent(this::personFound);
-    } catch (Exception e) {
-      log.error("Exception caught: {}", e.getMessage());
-    }
   }
 
   private void personFound(Person person) {
